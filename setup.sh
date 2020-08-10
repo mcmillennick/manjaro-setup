@@ -207,3 +207,4 @@ if ! grep -q '# alsa-glitch-fix' /etc/pulse/default.pa ; then
     echo '# alsa-glitch-fix' | sudo tee -a /etc/pulse/default.pa
     echo 'load-module module-udev-detect tsched=0' | sudo tee -a /etc/pulse/default.pa
 fi
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
