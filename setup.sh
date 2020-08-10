@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO: https://forum.manjaro.org/t/how-to-replace-pulseaudio-with-jack-jack-and-pulseaudio-together-as-friend/2086
 smbusername = 'stony'
 smbpassword = 'euclid1337'
 
