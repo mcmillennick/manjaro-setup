@@ -8,56 +8,134 @@ echo ">>> Updating packages"
 sudo pacman -Syu
 yay -Syu
 
-echo ">>> Setting Up Audio"
-sudo pacman -Sq yay manjaro-pulse pavucontrol
+# echo ">>> Setting Up Audio"
+# sudo pacman -Sq yay manjaro-pulse pavucontrol
 
-echo ">>> Setting up AMDGPU"
-sudo pacman -Sq lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader
-sudo pacman -Sq lib32-gnutls lib32-libldap lib32-libgpg-error lib32-sqlite lib32-libpulse
-sudo pacman -Sq wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libldap gnutls lib32-gnutls mpg123 lib32-mpg123 openal lib32-openal v4l-utils lib32-v4l-utils libpulse lib32-libpulse libgpg-error lib32-libgpg-error alsa-plugins lib32-alsa-plugins alsa-lib lib32-alsa-lib libjpeg-turbo lib32-libjpeg-turbo sqlite lib32-sqlite libxcomposite lib32-libxcomposite libxinerama lib32-libgcrypt libgcrypt lib32-libxinerama ncurses lib32-ncurses opencl-icd-loader lib32-opencl-icd-loader libxslt lib32-libxslt libva lib32-libva gtk3 lib32-gtk3 gst-plugins-base-libs lib32-gst-plugins-base-libs vulkan-icd-loader lib32-vulkan-icd-loader
+if pacman -Qs vulkan-radeon > /dev/null ; then
+  echo ">>> AMDGPU is setup"
+else
+  echo ">>> AMDGPU is not installed"
+  echo ">>> Installing up AMDGPU"
+  sudo pacman -Sq lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader
+  sudo pacman -Sq lib32-gnutls lib32-libldap lib32-libgpg-error lib32-sqlite lib32-libpulse
+  sudo pacman -Sq wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libldap gnutls lib32-gnutls mpg123 lib32-mpg123 openal lib32-openal v4l-utils lib32-v4l-utils libpulse lib32-libpulse libgpg-error lib32-libgpg-error alsa-plugins lib32-alsa-plugins alsa-lib lib32-alsa-lib libjpeg-turbo lib32-libjpeg-turbo sqlite lib32-sqlite libxcomposite lib32-libxcomposite libxinerama lib32-libgcrypt libgcrypt lib32-libxinerama ncurses lib32-ncurses opencl-icd-loader lib32-opencl-icd-loader libxslt lib32-libxslt libva lib32-libva gtk3 lib32-gtk3 gst-plugins-base-libs lib32-gst-plugins-base-libs vulkan-icd-loader lib32-vulkan-icd-loader
+fi
 
-echo ">>> Setting up Decklink"
-sudo pacman -Sq dkms
-yay -Sq decklink
+if pacman -Qs decklink > /dev/null ; then
+  echo "Decklink is installed"
+else
+  echo "The package $package is not installed"
+  echo ">>> Setting up Decklink"
+  sudo pacman -Sq dkms
+  yay -Sq decklink
+fi
 
-echo ">>> Setting up v4l2loopback"
-yay -Sq v4l2loopback-dkms obs-v4l2sink
+if pacman -Qs v4l2loopback-dkms > /dev/null ; then
+  echo ">>> v4l2loopback-dkms is installed"
+else
+  echo ">>> v4l2loopback-dkms is not installed"
+  echo ">>> Setting up v4l2loopback"
+  yay -Sq v4l2loopback-dkms obs-v4l2sink
+fi
 
-echo ">>> Installing VS Code"
-yay -Sq visual-studio-code-bin 
+if pacman -Qs visual-studio-code-bin > /dev/null ; then
+  echo ">>> visual-studio-code-bin is installed"
+else
+  echo ">>> visual-studio-code-bin is not installed"
+  echo ">>> Installing visual-studio-code-bin"
+  yay -Sq visual-studio-code-bin 
+fi
 
-echo ">>> Installing BalenaEtcher"
-yay -Sq balena-etcher
+if pacman -Qs balena-etcher > /dev/null ; then
+  echo "balena-etcher is installed"
+else
+  echo ">>> balena-etcher is not installed"
+  echo ">>> installing balena-etcher"
+  yay -Sq balena-etcher
+fi
 
-echo ">>> Installing Opera"
-yay -Sq opera
 
-echo ">>> Installing Rofi"
-yay -Sq rofi
+if pacman -Qs opera > /dev/null ; then
+  echo "opera is installed"
+else
+  echo ">>> opera is not installed"
+  echo ">>> Installing Opera"
+  yay -Sq opera
+fi
 
-echo ">>> Installing Discord"
-yay -Sq discord
+if pacman -Qs rofi > /dev/null ; then
+  echo "rofi is installed"
+else
+  echo ">>> rofi is not installed"
+  echo ">>> Installing Rofi"
+  yay -Sq rofi
+fi
 
-echo ">>> Installing Twitch"
-yay -Sq twitch 
 
-echo ">>> Installing Lutris and Steam"
-sudo pacman -Sq lutris steam
+if pacman -Qs discord > /dev/null ; then
+    echo "discord is installed"
+else
+    echo ">>> discord is not installed"
+    echo ">>> Installing Discord"
+    yay -Sq discord
+fi
 
-echo ">>> Installing FreeFileSync"
-yay -Sq freefilesync
+if pacman -Qs twitch > /dev/null ; then
+    echo "twitch is installed"
+else
+    echo ">>> twitch is not installed"
+    echo ">>> Installing Twitch"
+    yay -Sq twitch 
+fi
 
-echo ">>> Installing Remmina"
-sudo pacman -Sq freerdp remmina
+if pacman -Qs steam > /dev/null ; then
+    echo "steam is installed"
+else
+    echo ">>> steam is not installed"
+    echo ">>> Installing Lutris and Steam"
+    sudo pacman -Sq lutris steam
+fi
 
-echo ">>> Installing OBS Studio"
-sudo pacman -Sq obs-studio
+if pacman -Qs freefilesync > /dev/null ; then
+    echo "freefilesync is installed"
+else
+    echo ">>> freefilesync is not installed"
+    echo ">>> Installing FreeFileSync"
+    yay -Sq freefilesync
+fi
 
-echo ">>> Installing OBS Studio plugins"
-yay -Sq obs-cli obs-ndi obs-v4l2sink obs-linuxbrowser-bin obs-motion-effect-git
+if pacman -Qs remmina > /dev/null ; then
+    echo "remmina is installed"
+else
+    echo ">>> remmina is not installed"
+    echo ">>> Installing Remmina"
+    sudo pacman -Sq freerdp remmina
+fi
 
-echo ">>> Installing Yakuake"
-sudo pacman -Sq yakuake
+if pacman -Qs obs-studio > /dev/null ; then
+    echo "obs-studio is installed"
+else
+    echo ">>> obs-studio is not installed"
+    echo ">>> Installing OBS Studio"
+    sudo pacman -Sq obs-studio
+fi
+
+if pacman -Qs obs-motion-effect-git > /dev/null ; then
+    echo "obs plugins are installed"
+else
+    echo ">>> obs plugins are not installed"
+    echo ">>> Installing OBS Studio plugins"
+    yay -Sq obs-cli obs-ndi obs-v4l2sink obs-linuxbrowser-bin obs-motion-effect-git
+fi
+
+if pacman -Qs yakuake > /dev/null ; then
+    echo "yakuake is installed"
+else
+    echo ">>> yakuake is not installed"
+    echo ">>> Installing Yakuake"
+    sudo pacman -Sq yakuake
+fi
+
 
 echo "=== Network Drives ==="
 echo "======================"
@@ -109,7 +187,7 @@ fi
 echo "=== Device Fixes ==="
 echo "===================="
 
-echo "Fixing UVC bandwidth"
+echo "Fixing UVC modules"
 if ! grep -q '# uvc-modules' /etc/modules-load.d/modules.conf ; then
     echo '# uvc-modules' | sudo tee -a /etc/modules-load.d/modules.conf
     echo 'uvcvideo' | sudo tee -a /etc/modules-load.d/modules.conf
