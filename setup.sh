@@ -156,6 +156,7 @@ if ! grep -q 'init-monitors' /etc/X11/xorg.conf.d/dm-multimonitor.sh ; then
     echo '# Uncomment the sleep command, if you face problems, as a possible workaround' | sudo tee -a /etc/X11/xorg.conf.d/dm-multimonitor.sh
     echo '# sleep 3' | sudo tee -a /etc/X11/xorg.conf.d/dm-multimonitor.sh
     echo 'xrandr --output DisplayPort-0 --primary --mode 1920x1080 --pos 1080x420 --rate 239.76 --rotate normal --output DisplayPort-1 --mode 1920x1080 --pos 0x0 --rotate left --output DisplayPort-2 --mode 1920x1080 --pos 3000x0 --rotate right --output HDMI-A-0 --off' | sudo tee -a /etc/X11/xorg.conf.d/dm-multimonitor.sh
+    sudo chmod +x /etc/X11/xorg.conf.d/dm-multimonitor.sh
 fi
 
 echo ">>> Mounting downloads share on Storage 01"
